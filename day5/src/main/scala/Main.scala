@@ -62,8 +62,37 @@ def part1: Long =
   val l = getLocations(getSeeds, getMap)
   l.map(_.split(" ")(1).toLong).sorted.apply(0)
 
+def getSeedRanges: List[Long] =
+  val w = getData(0).split(" ")
+  w.slice(1, w.size).map(_.toLong).toList
+
 def part2: Long =
-  2
+  val m = getMap
+  var seeds = getSeedRanges
+  var lowest: Long = 9999999999999
+  var done: Long = 0
+  var starttime = System.currentTimeMillis
+  for (n <- 0 to seeds.length-1 by 2) {
+    val start = seeds(n)
+    val end = start + seeds(n+1) - 1
+    for (s <- start to end) {
+      var d = s"seed $s"
+      for (_ <- 0 to 6) {
+        d = follow(d, m)
+      }
+      val nd = d.split(" ")(1).toLong
+      if (nd < lowest) {
+        lowest = nd
+        println(s"Best location: $lowest")
+      }
+      done += 1
+       if (System.currentTimeMillis - starttime > 1000) {
+        println(s"Done: $done")
+        starttime = System.currentTimeMillis
+      }
+    }
+  }
+  lowest
 
 @main def hello: Unit =
   println("Part 1: " + part1)
