@@ -13,3 +13,6 @@ I am learning [Scala](https://www.scala-lang.org/) from scratch. I am using vim 
 # Days of note
 
 * Day 5 was the first really hard day, especially part 2. I implemented something that would take close to 3 days to finish, but didn't want to actually do that. I then spent time on the 6th trying to improve it instead of working on day 6, and then decided to jump straight to day 7. I still plan to go back and fill in these stars when I have the time.
+* Hey, why is life so much busier for me this year than in past years? I've fallen behind a bit, but still working my way through slowly. Scala is fun but I'm still not as good at functional, so there have been a few days I've just punted on part 2. No heroes!
+* My pattern finding code for day 14 is grossssss, but it worked
+
