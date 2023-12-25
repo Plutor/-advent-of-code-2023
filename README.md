@@ -7,7 +7,7 @@ I am learning [Scala](https://www.scala-lang.org/) from scratch. I am using vim 
 
 * Yuppp, Scala's as fun as Kotlin.
 * Like Haskell, `var`/`val` are too similar.
-* `sbt` is pretty easy, but it's weird that it doesn't have a flag for project name with `sbt new` and I have to `cat |` the name into it.
+* `sbt` is pretty easy, but it's weird that it doesn't have a flag for project name with `sbt new` and I have to `echo |` the name into it.
 * Also I kinda want to make my own skeleton that I can use with `sbt` but I haven't done that yet.
 
 # Days of note
