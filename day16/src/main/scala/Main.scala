@@ -38,7 +38,6 @@ class Contraption(var layout: List[String]):
   def next: Contraption =
     var nv = visited
     var nr = Set[(Int,Int,Int)]()
-    var x = false
     rays.foreach(r =>
         r(2) match {
           case 0 =>  // N
@@ -76,7 +75,6 @@ class Contraption(var layout: List[String]):
             }
             nv = nv.updated(r(1), nv(r(1)).patch(end, List.fill(r(0)-end)(true), r(0)-end))
         }
-        if (nr.contains((67,109,1)) && !x) { println(r); x = true }
       )
 
     Contraption(layout, nv, nr)
