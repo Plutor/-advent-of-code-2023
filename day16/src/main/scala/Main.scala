@@ -38,35 +38,47 @@ class Contraption(var layout: List[String]):
   def next: Contraption =
     var nv = visited
     var nr = Set[(Int,Int,Int)]()
+    var x = false
     rays.foreach(r =>
         r(2) match {
           case 0 =>  // N
             val col = layout.map(_(r(0))).mkString
             var end = col.lastIndexWhere("-/\\".contains(_), r(1)-1)
             if (end == -1) end = 0
+            else {
+              if ("-\\".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,3))
+              if ("-/".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,1))
+            }
             nv = nv.patch(end, nv.drop(end).take(r(1)-end).map(_.updated(r(0), true)), r(1)-end)
-            if ("-\\".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,3))
-            if ("-/".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,1))
           case 1 =>  // E
             var end = layout(r(1)).indexWhere("|/\\".contains(_), r(0)+1)
             if (end == -1) end = layout(r(1)).size-1
+            else {
+              if ("|\\".contains(layout(r(1))(end))) nr = nr + ((end,r(1),2))
+              if ("|/".contains(layout(r(1))(end))) nr = nr + ((end,r(1),0))
+            }
             nv = nv.updated(r(1), nv(r(1)).patch(r(0)+1, List.fill(end-r(0))(true), end-r(0)))
-            if ("|\\".contains(layout(r(1))(end))) nr = nr + ((end,r(1),2))
-            if ("|/".contains(layout(r(1))(end))) nr = nr + ((end,r(1),0))
           case 2 =>  // S
             val col = layout.map(_(r(0))).mkString
             var end = col.indexWhere("-/\\".contains(_), r(1)+1)
             if (end == -1) end = layout(r(1)).size-1
+            else {
+              if ("-\\".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,1))
+              if ("-/".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,3))
+            }
             nv = nv.patch(r(1)+1, nv.drop(r(1)+1).take(end-r(1)).map(_.updated(r(0), true)), end-r(1))
-            if ("-\\".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,1))
-            if ("-/".contains(layout(end)(r(0)))) nr = nr + ((r(0),end,3))
           case _ =>  // W
             var end = layout(r(1)).lastIndexWhere("|/\\".contains(_), r(0)-1)
             if (end == -1) end = 0
+            else {
+              if ("|\\".contains(layout(r(1))(end))) nr = nr + ((end,r(1),0))
+              if ("|/".contains(layout(r(1))(end))) nr = nr + ((end,r(1),2))
+            }
             nv = nv.updated(r(1), nv(r(1)).patch(end, List.fill(r(0)-end)(true), r(0)-end))
-            if ("|\\".contains(layout(r(1))(end))) nr = nr + ((end,r(1),0))
-            if ("|/".contains(layout(r(1))(end))) nr = nr + ((end,r(1),2))
-        })
+        }
+        if (nr.contains((67,109,1)) && !x) { println(r); x = true }
+      )
+
     Contraption(layout, nv, nr)
 end Contraption
 
